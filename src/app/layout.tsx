@@ -1,13 +1,18 @@
 import "./globals.css";
-
-// You can change this to your custom favicon icon, title and description
+import { Lato } from "next/font/google";
 export const metadata = {
-  title: 'Create Next Base',
-  description: 'A production-ready Next.js starter template crafted by ONTONIM to accelerate your web development workflow. This boilerplate combines modern technologies with enterprise-grade architecture to help you build performant, scalable applications faster.',
+  title: "Labid Rahat",
+  description: "A",
   icons: {
-    icon: 'https://i.ibb.co/BHMGGW7z/ontonim.png',
+    icon: "../../public/logo/logo.png",
   },
 };
+
+const lato = Lato({
+  subsets: ["latin"],
+  variable: "--font-lato",
+  weight: ["400", "700", "900"],
+});
 
 export default function RootLayout({
   children,
@@ -15,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html className={lato.variable}>
       <body>
         <main>{children}</main>
       </body>
