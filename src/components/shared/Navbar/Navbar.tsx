@@ -1,16 +1,22 @@
+"use client";
 
-"use client"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useMobile } from "@/hooks/use-mobile";
+import logo from "../../../../public/logo/logo.png";
+import Image from "next/image";
 
 // Navigation items with dropdown support
 const navigationItems = [
@@ -36,36 +42,38 @@ const navigationItems = [
   { title: "Portfolio", href: "/portfolio" },
   { title: "Blog", href: "/blog" },
   { title: "Contact", href: "/contact" },
-]
+];
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const isMobile = useMobile()
-  const [isScrolled, setIsScrolled] = React.useState(false)
+  const pathname = usePathname();
+  const isMobile = useMobile();
+  const [isScrolled, setIsScrolled] = React.useState(false);
 
   // Handle scroll effect
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+      setIsScrolled(window.scrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-white",
+        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-white"
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-primary"></div>
-            <span className="text-xl font-bold">Logo Here</span>
+            <div className="h-8 w-8 rounded-full">
+              <Image src={logo} alt="Labid Rahat" height={50} width={50} />
+            </div>
+            <span className="text-xl font-bold">Labid Rahat</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -79,7 +87,9 @@ export default function Navbar() {
                         variant="ghost"
                         className={cn(
                           "text-base font-medium transition-colors hover:text-primary",
-                          pathname === item.href ? "text-primary" : "text-foreground",
+                          pathname === item.href
+                            ? "text-primary"
+                            : "text-foreground"
                         )}
                       >
                         {item.title}
@@ -90,7 +100,12 @@ export default function Navbar() {
                         <DropdownMenuItem key={dropdownItem.title} asChild>
                           <Link
                             href={dropdownItem.href}
-                            className={cn("w-full", pathname === dropdownItem.href ? "font-medium text-primary" : "")}
+                            className={cn(
+                              "w-full",
+                              pathname === dropdownItem.href
+                                ? "font-medium text-primary"
+                                : ""
+                            )}
                           >
                             {dropdownItem.title}
                           </Link>
@@ -103,7 +118,9 @@ export default function Navbar() {
                     href={item.href}
                     className={cn(
                       "text-base font-medium transition-colors hover:text-primary",
-                      pathname === item.href ? "text-primary" : "text-foreground",
+                      pathname === item.href
+                        ? "text-primary"
+                        : "text-foreground"
                     )}
                   >
                     {item.title}
@@ -139,7 +156,9 @@ export default function Navbar() {
                               href={dropdownItem.href}
                               className={cn(
                                 "text-base transition-colors hover:text-primary",
-                                pathname === dropdownItem.href ? "font-medium text-primary" : "text-muted-foreground",
+                                pathname === dropdownItem.href
+                                  ? "font-medium text-primary"
+                                  : "text-muted-foreground"
                               )}
                             >
                               {dropdownItem.title}
@@ -152,7 +171,9 @@ export default function Navbar() {
                         href={item.href}
                         className={cn(
                           "text-lg font-medium transition-colors hover:text-primary",
-                          pathname === item.href ? "text-primary" : "text-foreground",
+                          pathname === item.href
+                            ? "text-primary"
+                            : "text-foreground"
                         )}
                       >
                         {item.title}
@@ -167,5 +188,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }
