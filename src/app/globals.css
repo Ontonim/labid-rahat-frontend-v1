@@ -3,3 +3,8 @@
 body {
   font-family: var(--font-lato), sans-serif;
 }
+
+:root {
+  --text: "#362820";
+  --background: "#FCEACE";
+}

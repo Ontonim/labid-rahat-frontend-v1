@@ -3,45 +3,38 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Play, BookOpen, Users, Calendar } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useMobile } from "@/hooks/use-mobile";
-import logo from "../../../../public/logo/logo.png";
 import Image from "next/image";
+import logo from "../../../../public/logo/logo.png";
 
-// Navigation items with dropdown support
 const navigationItems = [
-  { title: "Home", href: "/" },
+  { title: "Home", href: "/", icon: null },
   {
-    title: "Services",
-    href: "/services",
-    dropdown: [
-      { title: "Web Development", href: "/services/web-development" },
-      { title: "Mobile Apps", href: "/services/mobile-apps" },
-      { title: "UI/UX Design", href: "/services/design" },
-    ],
+    title: "Video Series",
+    href: "/series",
+    icon: <Play className="h-4 w-4" />,
   },
   {
-    title: "About",
-    href: "/about",
-    dropdown: [
-      { title: "Our Team", href: "/about/team" },
-      { title: "Our Story", href: "/about/story" },
-      { title: "Careers", href: "/about/careers" },
-    ],
+    title: "Blogs",
+    href: "/blogs",
+    icon: <BookOpen className="h-4 w-4" />,
   },
-  { title: "Portfolio", href: "/portfolio" },
-  { title: "Blog", href: "/blog" },
-  { title: "Contact", href: "/contact" },
+  {
+    title: "Case Studies",
+    href: "/case-studies",
+    icon: <Calendar className="h-4 w-4" />,
+  },
+  {
+    title: "Community",
+    href: "/community",
+    icon: <Users className="h-4 w-4" />,
+  },
+  { title: "Contact", href: "/contact", icon: null },
 ];
 
 export default function Navbar() {
@@ -62,126 +55,149 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-white"
+        "sticky top-0 z-50 w-full transition-all duration-300 border-b",
+        isScrolled
+          ? "bg-white/98 backdrop-blur-md shadow-lg border-gray-200/50"
+          : "bg-white/95 backdrop-blur-sm border-gray-100"
       )}
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full">
-              <Image src={logo} alt="Labid Rahat" height={50} width={50} />
+      <div className="px-4">
+        <div className="flex h-20 items-center justify-between">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative h-12 w-12 rounded-full overflow-hidden ring-2 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300">
+              <Image
+                src={logo}
+                alt="Labid Rahat - ইতিহাসবিদ"
+                height={48}
+                width={48}
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
-            <span className="text-xl font-bold">Labid Rahat</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary group-hover:text-gray-900 transition-colors duration-300">
+                Labid Rahat
+              </span>
+              <span className="text-sm text-gray-600 font-medium">
+                ইতিহাসবিদ ও শিক্ষক
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-3">
             {navigationItems.map((item) => (
-              <React.Fragment key={item.title}>
-                {item.dropdown ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className={cn(
-                          "text-base font-medium transition-colors hover:text-primary",
-                          pathname === item.href
-                            ? "text-primary"
-                            : "text-foreground"
-                        )}
-                      >
-                        {item.title}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="w-48">
-                      {item.dropdown.map((dropdownItem) => (
-                        <DropdownMenuItem key={dropdownItem.title} asChild>
-                          <Link
-                            href={dropdownItem.href}
-                            className={cn(
-                              "w-full",
-                              pathname === dropdownItem.href
-                                ? "font-medium text-primary"
-                                : ""
-                            )}
-                          >
-                            {dropdownItem.title}
-                          </Link>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "text-base font-medium transition-colors hover:text-primary",
-                      pathname === item.href
-                        ? "text-primary"
-                        : "text-foreground"
-                    )}
-                  >
-                    {item.title}
-                  </Link>
-                )}
-              </React.Fragment>
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "text-base font-medium transition-all duration-300 hover:bg-[#FEF3DF] hover:text-primary px-4 py-2 h-auto flex items-center gap-2 cursor-pointer",
+                    pathname === item.href
+                      ? "text-primary bg-background shadow-sm"
+                      : "text-gray-700 hover:text-primary"
+                  )}
+                >
+                  {item.icon}
+                  {item.title}
+                </Button>
+              </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button>Get Started</Button>
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className="text-right">
+              <div className="text-sm font-semibold text-gray-900">
+                ২.৫M+ সাবস্ক্রাইবার
+              </div>
+              <div className="text-xs text-gray-600">YouTube চ্যানেল</div>
+            </div>
+            <Button
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 h-auto shadow-lg hover:shadow-xl transition-all duration-300"
+              asChild
+            >
+              <Link
+                href="https://youtube.com/@labidrahat"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Play className="h-4 w-4 mr-2" />
+                সাবস্ক্রাইব করুন
+              </Link>
+            </Button>
           </div>
 
-          {/* Mobile Menu */}
           <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Menu">
+            <SheetTrigger asChild className="lg:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Menu"
+                className="h-12 w-12 hover:bg-blue-50"
+              >
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[350px]">
-              <div className="flex flex-col px-4 space-y-6 pt-6">
-                {navigationItems.map((item) => (
-                  <div key={item.title} className="space-y-3">
-                    {item.dropdown ? (
-                      <>
-                        <div className="font-medium text-lg">{item.title}</div>
-                        <div className="ml-4 flex flex-col space-y-2">
-                          {item.dropdown.map((dropdownItem) => (
-                            <Link
-                              key={dropdownItem.title}
-                              href={dropdownItem.href}
-                              className={cn(
-                                "text-base transition-colors hover:text-primary",
-                                pathname === dropdownItem.href
-                                  ? "font-medium text-primary"
-                                  : "text-muted-foreground"
-                              )}
-                            >
-                              {dropdownItem.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "text-lg font-medium transition-colors hover:text-primary",
-                          pathname === item.href
-                            ? "text-primary"
-                            : "text-foreground"
-                        )}
-                      >
-                        {item.title}
-                      </Link>
-                    )}
+            <SheetContent
+              side="right"
+              className="w-[320px] sm:w-[380px] bg-white shadow-2xl border-l border-gray-200"
+            >
+              <div className="flex flex-col space-y-1 pt-8">
+                <div className="flex items-center space-x-3 mb-8 pb-6 border-b border-gray-100">
+                  <div className="h-12 w-12 rounded-full overflow-hidden ring-2 ring-blue-100">
+                    <Image
+                      src="/professional-history-teacher-avatar.jpg"
+                      alt="Labid Rahat"
+                      height={48}
+                      width={48}
+                      className="object-cover"
+                    />
                   </div>
+                  <div>
+                    <div className="font-bold text-lg text-gray-900">
+                      Labid Rahat
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      ইতিহাসবিদ ও শিক্ষক
+                    </div>
+                  </div>
+                </div>
+
+                {navigationItems.map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start text-base font-medium transition-all duration-300 hover:bg-blue-50 hover:text-blue-700 px-4 py-3 h-auto flex items-center gap-3",
+                        pathname === item.href
+                          ? "text-blue-700 bg-blue-50"
+                          : "text-gray-700"
+                      )}
+                    >
+                      {item.icon}
+                      {item.title}
+                    </Button>
+                  </Link>
                 ))}
-                <Button className="mt-4 w-full">Get Started</Button>
+
+                <div className="pt-6 mt-6 border-t border-gray-100 space-y-3">
+                  <div className="text-center">
+                    <div className="text-sm font-semibold text-gray-900">
+                      ২.৫M+ সাবস্ক্রাইবার
+                    </div>
+                    <div className="text-xs text-gray-600">YouTube চ্যানেল</div>
+                  </div>
+                  <Button
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 h-auto shadow-lg"
+                    asChild
+                  >
+                    <Link
+                      href="https://youtube.com/@labidrahat"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Play className="h-4 w-4 mr-2" />
+                      সাবস্ক্রাইব করুন
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
