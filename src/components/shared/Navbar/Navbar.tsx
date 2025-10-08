@@ -3,7 +3,18 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Play, BookOpen, Users, Calendar } from "lucide-react";
+import {
+  Menu,
+  Play,
+  BookOpen,
+  Users,
+  Calendar,
+  Info,
+  Contact,
+  ArrowRight,
+  ChevronRight,
+  House,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,7 +24,8 @@ import Image from "next/image";
 import logo from "../../../../public/logo/logo.png";
 
 const navigationItems = [
-  { title: "Home", href: "/", icon: null },
+  { title: "Home", href: "/", icon: <House className="h-4 w-4" /> },
+  { title: "About", href: "/about", icon: <Info className="h-4 w-4" /> },
   {
     title: "Video Series",
     href: "/series",
@@ -30,11 +42,11 @@ const navigationItems = [
     icon: <Calendar className="h-4 w-4" />,
   },
   {
-    title: "Community",
-    href: "/community",
+    title: "Events & Community",
+    href: "/events",
     icon: <Users className="h-4 w-4" />,
   },
-  { title: "Contact", href: "/contact", icon: null },
+  { title: "Contact", href: "/contact", icon: <Contact className="h-4 w-4" /> },
 ];
 
 export default function Navbar() {
@@ -77,9 +89,6 @@ export default function Navbar() {
               <span className="text-2xl font-bold text-primary group-hover:text-gray-900 transition-colors duration-300">
                 Labid Rahat
               </span>
-              <span className="text-sm text-gray-600 font-medium">
-                ইতিহাসবিদ ও শিক্ষক
-              </span>
             </div>
           </Link>
 
@@ -91,7 +100,7 @@ export default function Navbar() {
                   className={cn(
                     "text-base font-medium transition-all duration-300 hover:bg-[#FEF3DF] hover:text-primary px-4 py-2 h-auto flex items-center gap-2 cursor-pointer",
                     pathname === item.href
-                      ? "text-primary bg-background shadow-sm"
+                      ? "text-primary bg-[#FEF3DF] shadow-sm"
                       : "text-gray-700 hover:text-primary"
                   )}
                 >
@@ -103,12 +112,6 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <div className="text-right">
-              <div className="text-sm font-semibold text-gray-900">
-                ২.৫M+ সাবস্ক্রাইবার
-              </div>
-              <div className="text-xs text-gray-600">YouTube চ্যানেল</div>
-            </div>
             <Button
               className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 h-auto shadow-lg hover:shadow-xl transition-all duration-300"
               asChild
@@ -119,7 +122,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
               >
                 <Play className="h-4 w-4 mr-2" />
-                সাবস্ক্রাইব করুন
+                Subscribe Now
               </Link>
             </Button>
           </div>
@@ -137,13 +140,13 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[320px] sm:w-[380px] bg-white shadow-2xl border-l border-gray-200"
+              className="w-[320px] sm:w-[380px] bg-white shadow-2xl border-l border-gray-200 px-2"
             >
               <div className="flex flex-col space-y-1 pt-8">
                 <div className="flex items-center space-x-3 mb-8 pb-6 border-b border-gray-100">
                   <div className="h-12 w-12 rounded-full overflow-hidden ring-2 ring-blue-100">
                     <Image
-                      src="/professional-history-teacher-avatar.jpg"
+                      src={logo}
                       alt="Labid Rahat"
                       height={48}
                       width={48}
@@ -154,9 +157,6 @@ export default function Navbar() {
                     <div className="font-bold text-lg text-gray-900">
                       Labid Rahat
                     </div>
-                    <div className="text-sm text-gray-600">
-                      ইতিহাসবিদ ও শিক্ষক
-                    </div>
                   </div>
                 </div>
 
@@ -165,25 +165,26 @@ export default function Navbar() {
                     <Button
                       variant="ghost"
                       className={cn(
-                        "w-full justify-start text-base font-medium transition-all duration-300 hover:bg-blue-50 hover:text-blue-700 px-4 py-3 h-auto flex items-center gap-3",
+                        "w-full justify-start text-base font-medium transition-all duration-300 hover:bg-[#FEF3DF] hover:text-black px-4 py-3 h-auto flex items-center gap-3 my-1",
                         pathname === item.href
-                          ? "text-blue-700 bg-blue-50"
+                          ? "text-black bg-[#FEF3DF]"
                           : "text-gray-700"
                       )}
                     >
-                      {item.icon}
-                      {item.title}
+                      <div className="flex justify-between items-center w-full">
+                        <span className="flex items-center gap-3">
+                          {item.icon}
+                          {item.title}
+                        </span>
+                        <span>
+                          <ChevronRight className="h-4 w-4 ml-auto text-gray-700" />
+                        </span>
+                      </div>
                     </Button>
                   </Link>
                 ))}
 
                 <div className="pt-6 mt-6 border-t border-gray-100 space-y-3">
-                  <div className="text-center">
-                    <div className="text-sm font-semibold text-gray-900">
-                      ২.৫M+ সাবস্ক্রাইবার
-                    </div>
-                    <div className="text-xs text-gray-600">YouTube চ্যানেল</div>
-                  </div>
                   <Button
                     className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 h-auto shadow-lg"
                     asChild
@@ -194,7 +195,7 @@ export default function Navbar() {
                       rel="noopener noreferrer"
                     >
                       <Play className="h-4 w-4 mr-2" />
-                      সাবস্ক্রাইব করুন
+                      Subscribe Now
                     </Link>
                   </Button>
                 </div>
