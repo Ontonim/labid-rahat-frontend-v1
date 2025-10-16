@@ -1,30 +1,37 @@
-"use client"
+"use client";
 
-import { ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface BlogPost {
-  id: string
-  title: string
-  excerpt: string
-  date: string
-  category: string
-  source: string
-  image: string
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  source: string;
+  image: string;
 }
 
 interface BlogCardProps {
-  post: BlogPost
-  isHovered: boolean
-  onHover: (id: string | null) => void
+  post: BlogPost;
+  isHovered: boolean;
+  onHover: (id: string | null) => void;
 }
 
 export default function BlogCard({ post, onHover }: BlogCardProps) {
   return (
-    <div className="group cursor-pointer" onMouseEnter={() => onHover(post.id)} onMouseLeave={() => onHover(null)}>
+    <div
+      className="group cursor-pointer"
+      onMouseEnter={() => onHover(post.id)}
+      onMouseLeave={() => onHover(null)}
+    >
       <div className="relative bg-card rounded-lg overflow-hidden border border-border hover:border-[#02590F]/30 transition duration-300 h-full flex flex-col">
         {/* Image Container */}
         <div className="relative h-48 overflow-hidden bg-muted">
-          <img
+          <Image
+            width={500}
+            height={500}
             src={post.image || "/placeholder.svg"}
             alt={post.title}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
@@ -45,14 +52,18 @@ export default function BlogCard({ post, onHover }: BlogCardProps) {
             {post.title}
           </h3>
 
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">{post.excerpt}</p>
+          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">
+            {post.excerpt}
+          </p>
 
           <div className="flex items-center justify-between pt-4 border-t border-border">
-            <span className="text-xs font-medium text-muted-foreground">{post.source}</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              {post.source}
+            </span>
             <ArrowRight className="w-4 h-4 text-[#02590F] group-hover:translate-x-1 transition duration-300" />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
