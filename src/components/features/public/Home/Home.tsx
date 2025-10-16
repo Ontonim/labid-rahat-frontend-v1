@@ -1,14 +1,12 @@
 import React from "react";
 import Banner from "./Banner/Banner";
-// import LatestVideo from "./LatestVideo/LatestVideo";
-import Hudai from "./hudai/Hudai";
+import BlogSection from "./Blog/BlogSection";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      {/* <LatestVideo /> */}
-      <Hudai />
+      <BlogSection />
     </div>
   );
 };
