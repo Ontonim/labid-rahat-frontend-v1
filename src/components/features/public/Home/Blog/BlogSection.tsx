@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import BlogCard from "./BlogCard";
-import Background from "@/components/common/Background";
+import Link from "next/link";
 
 interface BlogPost {
   id: string;
@@ -24,7 +24,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "OCT 15 2025",
     category: "Technology",
     source: "Tech Insights",
-    image: "/sustainable-tech-innovation.png",
+    image: "https://www.usatoday.com/gcdn/authoring/authoring-images/2025/02/20/USAT/79336053007-image-1.jpg",
   },
   {
     id: "2",
@@ -34,7 +34,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "OCT 12 2025",
     category: "Development",
     source: "Dev Weekly",
-    image: "/modern-web-development.png",
+    image: "https://acropolium.com/img/articles/build-scalable-web-app-from-scratch/img08.jpg",
   },
   {
     id: "3",
@@ -44,7 +44,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "OCT 10 2025",
     category: "Design",
     source: "Design Today",
-    image: "/ai-design-tools.png",
+    image: "https://www.sphericalinsights.com/images/pr/ai-code-tools-market.png",
   },
   {
     id: "4",
@@ -54,7 +54,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "OCT 8 2025",
     category: "Performance",
     source: "Web Masters",
-    image: "/web-performance-optimization.png",
+    image: "https://cdn.shopify.com/s/files/1/0817/7988/4088/articles/3cPlniLKRTb08ThyDq5uZL_fe697a53-17ea-4af4-bc7a-1b71cda41dbf.jpg?v=1721067077",
   },
 ];
 
@@ -62,8 +62,7 @@ export default function BlogSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px] overflow-hidden bg-white">
-      <Background />
+    <section>
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-16 text-center">
@@ -71,7 +70,8 @@ export default function BlogSection() {
             Latest Blog
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
-            Stay updated with our latest articles, insights, blog and industry trends
+            Stay updated with our latest articles, insights, blog and industry
+            trends
           </p>
         </div>
 
@@ -131,10 +131,12 @@ export default function BlogSection() {
 
         {/* View All Button */}
         <div className="mt-16 text-center">
-          <button className="inline-flex items-center gap-2 px-8 py-3 bg-[#02590F] text-white rounded-lg font-semibold hover:bg-[#02590F]/90 transition duration-300 group">
-            View All Articles
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition duration-300" />
-          </button>
+          <Link href={"/article"}>
+            <button className="inline-flex items-center gap-2 px-8 py-3 bg-[#02590F] text-white rounded-lg font-semibold hover:bg-[#02590F]/90 transition duration-300 group cursor-pointer">
+              View All Articles
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition duration-300" />
+            </button>
+          </Link>
         </div>
       </div>
     </section>
