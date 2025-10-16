@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#02590F]/5 via-transparent to-[#02590F]/5" />
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#02590F]/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#02590F]/10 rounded-full blur-3xl -z-10" />
-      <div className="mx-auto container px-4 py-12">
+      <div className="mx-auto container px-4 py-12 relative z-10">
         {/* Main footer content */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand section */}

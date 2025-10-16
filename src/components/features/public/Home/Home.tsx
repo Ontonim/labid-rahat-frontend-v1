@@ -7,12 +7,14 @@ import NewsletterCTA from "./NewsLetter/NewsLetter";
 
 const Home = () => {
   return (
-    <section className="relative w-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px] overflow-hidden bg-white">
+    <section className="relative w-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px] overflow-hidden">
       <Background />
-      <Banner />
-      <BlogSection />
-      <CaseStudiesSection />
-      <NewsletterCTA />
+      <div className="relative">
+        <Banner />
+        <BlogSection />
+        <CaseStudiesSection />
+        <NewsletterCTA />
+      </div>
     </section>
   );
 };

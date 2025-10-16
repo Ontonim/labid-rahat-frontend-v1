@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import BlogCard from "./BlogCard";
 import Link from "next/link";
+import Image from "next/image";
 
 interface BlogPost {
   id: string;
@@ -18,43 +19,47 @@ interface BlogPost {
 const BLOG_POSTS: BlogPost[] = [
   {
     id: "1",
-    title: "The Future of Sustainable Technology in 2025",
+    title: "How Geography Shapes Global Politics",
     excerpt:
-      "Exploring how emerging technologies are reshaping our approach to environmental sustainability and creating a greener future.",
+      "Exploring how mountains, seas, and borders influence alliances, conflicts, and power dynamics in world politics.",
     date: "OCT 15 2025",
-    category: "Technology",
-    source: "Tech Insights",
-    image: "https://www.usatoday.com/gcdn/authoring/authoring-images/2025/02/20/USAT/79336053007-image-1.jpg",
+    category: "Geopolitics",
+    source: "World Affairs",
+    image:
+      "https://www.opengeography.org/uploads/1/7/4/1/17412073/_605067722.jpg",
   },
   {
     id: "2",
-    title: "Building Scalable Applications with Modern Frameworks",
+    title: "The Rise and Fall of Great Empires",
     excerpt:
-      "A deep dive into best practices for architecting applications that can grow with your business needs.",
+      "A deep dive into how geography, resources, culture, and leadership shaped the success and collapse of ancient civilizations.",
     date: "OCT 12 2025",
-    category: "Development",
-    source: "Dev Weekly",
-    image: "https://acropolium.com/img/articles/build-scalable-web-app-from-scratch/img08.jpg",
+    category: "History",
+    source: "History Chronicles",
+    image:
+      "https://www.worldhistory.org/img/r/p/1000x1200/14114.jpg.webp?v=1732552203",
   },
   {
     id: "3",
-    title: "The Rise of AI-Powered Design Tools",
+    title: "Why the Indian Ocean is a Geopolitical Hotspot",
     excerpt:
-      "How artificial intelligence is transforming the design process and empowering creators to work more efficiently.",
+      "Understanding the strategic importance of the Indian Ocean and why global powers compete for control over this region.",
     date: "OCT 10 2025",
-    category: "Design",
-    source: "Design Today",
-    image: "https://www.sphericalinsights.com/images/pr/ai-code-tools-market.png",
+    category: "Geography",
+    source: "Geo Insights",
+    image:
+      "https://thegeopolitics.com/wp-content/uploads/2021/03/Indian-Navy-flotilla-of-Western-Fleet-escort-INS-Vikramaditya-and-INS-Viraat.jpg",
   },
   {
     id: "4",
-    title: "Understanding Web Performance Optimization",
+    title: "Border Conflicts: How History Still Shapes Today’s Maps",
     excerpt:
-      "Essential techniques to improve your website speed and deliver better user experiences across all devices.",
+      "Essential historical events that define modern borders and why territorial disputes continue across the world.",
     date: "OCT 8 2025",
-    category: "Performance",
-    source: "Web Masters",
-    image: "https://cdn.shopify.com/s/files/1/0817/7988/4088/articles/3cPlniLKRTb08ThyDq5uZL_fe697a53-17ea-4af4-bc7a-1b71cda41dbf.jpg?v=1721067077",
+    category: "Geopolitics",
+    source: "Global Perspective",
+    image:
+      "https://assets.thehansindia.com/h-upload/feeds/images/1085689-borders.jpg",
   },
 ];
 
@@ -82,7 +87,9 @@ export default function BlogSection() {
             <div className="relative bg-card rounded-lg overflow-hidden border border-border">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
                 <div className="relative h-64 md:h-full min-h-96 overflow-hidden">
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     src={BLOG_POSTS[0].image || "/placeholder.svg"}
                     alt={BLOG_POSTS[0].title}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-300"

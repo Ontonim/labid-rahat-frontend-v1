@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface CaseStudy {
   id: string;
@@ -22,10 +23,7 @@ interface CaseStudyCardProps {
   onHover: (id: string | null) => void;
 }
 
-export default function CaseStudyCard({
-  study,
-  onHover,
-}: CaseStudyCardProps) {
+export default function CaseStudyCard({ study, onHover }: CaseStudyCardProps) {
   return (
     <div
       className="group cursor-pointer"
@@ -35,7 +33,9 @@ export default function CaseStudyCard({
       <div className="relative bg-card rounded-lg overflow-hidden border border-border hover:border-[#02590F]/30 transition duration-300 h-full flex flex-col">
         {/* Image Container */}
         <div className="relative h-48 overflow-hidden bg-muted">
-          <img
+          <Image
+            width={500}
+            height={500}
             src={study.image || "/placeholder.svg"}
             alt={study.title}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-300"

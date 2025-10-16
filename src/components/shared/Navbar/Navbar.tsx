@@ -7,7 +7,6 @@ import {
   Menu,
   Play,
   BookOpen,
-  Users,
   Calendar,
   Info,
   Contact,
@@ -25,11 +24,6 @@ const navigationItems = [
   { title: "Home", href: "/", icon: <Home className="h-4 w-4" /> },
   { title: "About", href: "/about", icon: <Info className="h-4 w-4" /> },
   {
-    title: "Video Series",
-    href: "/series",
-    icon: <Play className="h-4 w-4" />,
-  },
-  {
     title: "Blogs",
     href: "/blogs",
     icon: <BookOpen className="h-4 w-4" />,
@@ -38,11 +32,6 @@ const navigationItems = [
     title: "Case Studies",
     href: "/case-studies",
     icon: <Calendar className="h-4 w-4" />,
-  },
-  {
-    title: "Events & Community",
-    href: "/events",
-    icon: <Users className="h-4 w-4" />,
   },
   { title: "Contact", href: "/contact", icon: <Contact className="h-4 w-4" /> },
 ];

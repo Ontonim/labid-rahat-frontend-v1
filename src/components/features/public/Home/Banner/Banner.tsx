@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Play, BookOpen, Globe, Sparkles } from "lucide-react";
 import labid from "../../../../../../public/images/labid_rahat.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Banner() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,7 +22,7 @@ export default function Banner() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px] overflow-hidden bg-white">
+    <div className="relative w-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px] overflow-hidden">
       {/* Canvas only on desktop */}
       {!isMobile && (
         <canvas
@@ -85,14 +86,19 @@ export default function Banner() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-500">
-              <Button
-                size="lg"
-                className="relative bg-gradient-to-r from-[#02590F] to-[#03701A] hover:from-[#03701A] hover:to-[#04A827] text-white font-medium px-8 py-6 text-base md:text-lg rounded-xl shadow-lg shadow-[#02590F]/30 hover:shadow-[#03701A]/40 transition-all duration-300 hover:scale-105 border border-[#02590F]/30 overflow-hidden group cursor-pointer"
+              <Link
+                target="_blank"
+                href="https://www.youtube.com/@LabidRahat/videos"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                <Play className="w-5 h-5 mr-2 relative z-10" />
-                <span className="relative z-10">Watch Latest Video</span>
-              </Button>
+                <Button
+                  size="lg"
+                  className="relative bg-gradient-to-r from-red-500 to-red-600 hover:from-red-400 hover:to-red-500 w-full text-white font-medium px-8 py-6 text-base md:text-lg rounded-xl shadow-lg shadow-[#02590F]/30 hover:shadow-[#03701A]/40 transition-all duration-300 hover:scale-105 border border-[#02590F]/30 overflow-hidden group cursor-pointer"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <Play className="w-5 h-5 mr-2 relative z-10" />
+                  <span className="relative z-10">Watch Latest Video</span>
+                </Button>
+              </Link>
               <Button
                 size="lg"
                 variant="outline"
