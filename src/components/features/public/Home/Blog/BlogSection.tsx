@@ -82,46 +82,48 @@ export default function BlogSection() {
 
         {/* Featured Post */}
         <div className="mb-16">
-          <div className="relative group cursor-pointer">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#02590F]/20 to-[#02590F]/5 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300" />
-            <div className="relative bg-card rounded-lg overflow-hidden border border-border">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                <div className="relative h-64 md:h-full min-h-96 overflow-hidden">
-                  <Image
-                    width={500}
-                    height={500}
-                    src={BLOG_POSTS[0].image || "/placeholder.svg"}
-                    alt={BLOG_POSTS[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                  />
-                </div>
-                <div className="p-8 md:p-12 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-sm font-semibold text-[#02590F] bg-[#02590F]/10 px-3 py-1 rounded-full">
-                        {BLOG_POSTS[0].category}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {BLOG_POSTS[0].date}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-balance">
-                      {BLOG_POSTS[0].title}
-                    </h3>
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                      {BLOG_POSTS[0].excerpt}
-                    </p>
+          <Link href={"/blogs/ancient-civilizations-impact"}>
+            <div className="relative group cursor-pointer">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#02590F]/20 to-[#02590F]/5 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300" />
+              <div className="relative bg-card rounded-lg overflow-hidden border border-border">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  <div className="relative h-64 md:h-full min-h-96 overflow-hidden">
+                    <Image
+                      width={500}
+                      height={500}
+                      src={BLOG_POSTS[0].image || "/placeholder.svg"}
+                      alt={BLOG_POSTS[0].title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-muted-foreground">
-                      {BLOG_POSTS[0].source}
-                    </span>
-                    <ArrowRight className="w-5 h-5 text-[#02590F] group-hover:translate-x-2 transition duration-300" />
+                  <div className="p-8 md:p-12 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-4 mb-4">
+                        <span className="text-sm font-semibold text-[#02590F] bg-[#02590F]/10 px-3 py-1 rounded-full">
+                          {BLOG_POSTS[0].category}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {BLOG_POSTS[0].date}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-balance">
+                        {BLOG_POSTS[0].title}
+                      </h3>
+                      <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                        {BLOG_POSTS[0].excerpt}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {BLOG_POSTS[0].source}
+                      </span>
+                      <ArrowRight className="w-5 h-5 text-[#02590F] group-hover:translate-x-2 transition duration-300" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Blog Grid */}

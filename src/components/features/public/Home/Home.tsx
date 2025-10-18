@@ -1,9 +1,9 @@
 import React from "react";
 import Banner from "./Banner/Banner";
 import BlogSection from "./Blog/BlogSection";
-import CaseStudiesSection from "./CaseStudies/CaseStudiesSection";
 import Background from "@/components/common/Background";
 import NewsletterCTA from "./NewsLetter/NewsLetter";
+import ResearchSection from "./Research/Research";
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
       <div className="relative">
         <Banner />
         <BlogSection />
-        <CaseStudiesSection />
+        <ResearchSection />
         <NewsletterCTA />
       </div>
     </section>
