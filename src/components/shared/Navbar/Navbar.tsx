@@ -29,8 +29,8 @@ const navigationItems = [
     icon: <BookOpen className="h-4 w-4" />,
   },
   {
-    title: "Case Studies",
-    href: "/case-studies",
+    title: "Research",
+    href: "/research",
     icon: <Calendar className="h-4 w-4" />,
   },
   { title: "Contact", href: "/contact", icon: <Contact className="h-4 w-4" /> },
