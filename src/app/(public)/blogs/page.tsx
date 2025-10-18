@@ -1,6 +1,7 @@
 import Background from "@/components/common/Background";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface BlogPost {
   id: string;
@@ -106,42 +107,44 @@ export default function BlogPage() {
             {BLOG_POSTS.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {BLOG_POSTS.map((post) => (
-                  <article
+                  <Link
                     key={post.id}
-                    className="group bg-card border border-border rounded-lg overflow-hidden hover:border-[#02590F] transition duration-300 cursor-pointer"
+                    href={"/blogs/ancient-civilizations-impact"}
                   >
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        width={500}
-                        height={500}
-                        src={post.image || "/placeholder.svg"}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-xs font-semibold text-[#02590F] bg-[#02590F]/10 px-2 py-1 rounded">
-                          {post.category}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {post.date}
-                        </span>
+                    <article className="group bg-card border border-border rounded-lg overflow-hidden hover:border-[#02590F] transition duration-300 cursor-pointer">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          width={500}
+                          height={500}
+                          src={post.image || "/placeholder.svg"}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                        />
                       </div>
-                      <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-[#02590F] transition">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
-                        <span className="text-xs font-medium text-muted-foreground">
-                          {post.source}
-                        </span>
-                        <ArrowRight className="w-4 h-4 text-[#02590F] group-hover:translate-x-1 transition" />
+                      <div className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-xs font-semibold text-[#02590F] bg-[#02590F]/10 px-2 py-1 rounded">
+                            {post.category}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {post.date}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-[#02590F] transition">
+                          {post.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                          {post.excerpt}
+                        </p>
+                        <div className="flex items-center justify-between pt-4 border-t border-border">
+                          <span className="text-xs font-medium text-muted-foreground">
+                            {post.source}
+                          </span>
+                          <ArrowRight className="w-4 h-4 text-[#02590F] group-hover:translate-x-1 transition" />
+                        </div>
                       </div>
-                    </div>
-                  </article>
+                    </article>
+                  </Link>
                 ))}
               </div>
             ) : (

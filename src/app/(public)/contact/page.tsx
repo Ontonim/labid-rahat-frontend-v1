@@ -75,7 +75,7 @@ export default function ContactPage() {
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                     <div className="grid gap-6 sm:grid-cols-2">
                       <div>
                         <label
@@ -162,7 +162,7 @@ export default function ContactPage() {
               </div>
 
               {/* Contact Information */}
-              <div className="space-y-8">
+              <div className="space-y-8 relative z-10">
                 {/* Email */}
                 <div className="rounded-lg border border-border bg-card p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#02590F]/10">
