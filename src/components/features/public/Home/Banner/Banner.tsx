@@ -1,11 +1,18 @@
 "use client";
 
+import localFont from "next/font/local";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, BookOpen, Globe, Sparkles } from "lucide-react";
+import { Play, BookOpen } from "lucide-react";
 import labid from "../../../../../../public/images/labid_rahat.jpg";
 import Image from "next/image";
 import Link from "next/link";
+
+const brewheat = localFont({
+  src: "../../../../../../public/fonts/brewheat.ttf",
+  weight: "900",
+  style: "normal",
+});
 
 export default function Banner() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -59,15 +66,10 @@ export default function Banner() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full min-h-[600px] md:min-h-[750px] lg:min-h-[900px]">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center h-full py-12 lg:py-0 mt-16 lg:mt-48">
           <div className="flex flex-col justify-center space-y-6 lg:space-y-8 order-2 lg:order-1">
-            <div className="flex items-center gap-3 text-[#02590F] animate-fade-in">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent via-[#02590F] to-transparent" />
-              <Globe className="w-5 h-5 animate-pulse" />
-              <Sparkles className="w-4 h-4 animate-pulse animation-delay-200" />
-              <div className="h-px w-12 bg-gradient-to-r from-transparent via-[#02590F] to-transparent" />
-            </div>
-
             <div className="space-y-3">
-              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#02590F] tracking-tight text-balance animate-fade-in-up leading-tight">
+              <h1
+                className={`${brewheat.className} text-7xl sm:text-6xl md:text-7xl lg:text-[125px] font-bold text-[#02590F] text-balance animate-fade-in-up leading-tight tracking-[6px]`}
+              >
                 Labid Rahat
               </h1>
               <div className="h-1 w-32 bg-gradient-to-r from-[#02590F] via-[#03701A] to-transparent rounded-full animate-fade-in-up animation-delay-200" />
@@ -78,7 +80,9 @@ export default function Banner() {
             </p>
 
             <div className="backdrop-blur-md bg-[#02590F]/5 border border-[#02590F]/20 rounded-2xl p-6 shadow-xl shadow-[#02590F]/10 animate-fade-in-up animation-delay-400">
-              <p className="text-base md:text-lg text-slate-700 leading-relaxed text-pretty">
+              <p
+                className={`text-base md:text-lg text-slate-700 leading-relaxed text-pretty`}
+              >
                 Exploring the depths of human civilization through compelling
                 narratives that bring the past to life with cutting-edge
                 storytelling
