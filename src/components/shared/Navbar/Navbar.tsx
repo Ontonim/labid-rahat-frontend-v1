@@ -7,12 +7,12 @@ import {
   Menu,
   Play,
   BookOpen,
-  Calendar,
   Info,
   Contact,
   ChevronRight,
   Home,
   X,
+  Users,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -29,9 +29,9 @@ const navigationItems = [
     icon: <BookOpen className="h-4 w-4" />,
   },
   {
-    title: "Research",
-    href: "/research",
-    icon: <Calendar className="h-4 w-4" />,
+    title: "Team",
+    href: "/team",
+    icon: <Users className="h-4 w-4" />,
   },
   { title: "Contact", href: "/contact", icon: <Contact className="h-4 w-4" /> },
 ];
