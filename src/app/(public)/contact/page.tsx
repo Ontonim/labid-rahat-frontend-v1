@@ -38,31 +38,32 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative min-h-screen my-8 lg:my-36">
+    <div className="relative min-h-screen mt-8 lg:mt-20">
       <div className="relative z-10">
         <Background />
         {/* Hero Section */}
-        <section className="border-b border-border bg-background/50 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <section className="relative">
+          <div className="mx-auto max-w-7xl px-4 pt-20">
             <div className="text-center">
               <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
                 Get in Touch
               </h1>
               <p className="mt-6 text-lg text-muted-foreground">
-                Have a question or want to collaborate? We&apos;d love to hear from
-                you. Send us a message and we&apos;ll respond as soon as possible.
+                Have a question or want to collaborate? We&apos;d love to hear
+                from you. Send us a message and we&apos;ll respond as soon as
+                possible.
               </p>
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="pt-20">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="grid gap-12 lg:grid-cols-3">
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <div className="rounded-lg border border-border bg-card py-8 px-4 shadow-sm">
+                <div className="rounded-lg border border-border bg-card py-8 px-4 lg:px-8 shadow-sm">
                   <h2 className="mb-8 text-2xl font-semibold text-foreground">
                     Send us a Message
                   </h2>
@@ -70,12 +71,16 @@ export default function ContactPage() {
                   {submitted && (
                     <div className="mb-6 animate-fade-in rounded-lg bg-[#02590F]/10 p-4 text-[#02590F]">
                       <p className="font-medium">
-                        Thank you for your message! We&apos;ll get back to you soon.
+                        Thank you for your message! We&apos;ll get back to you
+                        soon.
                       </p>
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6 relative z-10"
+                  >
                     <div className="grid gap-6 sm:grid-cols-2">
                       <div>
                         <label
@@ -304,7 +309,7 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="border-t border-border bg-background/50 py-20 backdrop-blur-sm">
+        <section className="relative py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold text-foreground">
