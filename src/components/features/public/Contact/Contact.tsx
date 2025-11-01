@@ -1,47 +1,40 @@
 "use client";
 
+import { sendMessage } from "@/actions/contact/contact";
 import Background from "@/components/common/Background";
 import type React from "react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [isPending, startTransition] = useTransition();
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    setErrorMessage(null);
+    setSubmitSuccess(false);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitted(true);
-      setLoading(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 1000);
+    const formData = new FormData(e.currentTarget);
+
+    startTransition(async () => {
+      const result = await sendMessage(formData);
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        setErrorMessage(null);
+        (document.getElementById("message-form") as HTMLFormElement)?.reset();
+
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
+        setErrorMessage(result.message);
+      }
+    });
   };
-
   return (
     <div className="relative min-h-screen mt-8 lg:mt-20">
       <div className="relative z-10">
         <Background />
-        {/* Hero Section */}
         <section className="relative">
           <div className="mx-auto max-w-7xl px-4 pt-20">
             <div className="text-center">
@@ -57,118 +50,123 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Contact Section */}
         <section className="pt-20">
           <div className="mx-auto max-w-7xl px-4">
             <div className="grid gap-12 lg:grid-cols-3">
-              {/* Contact Form */}
               <div className="lg:col-span-2">
                 <div className="rounded-lg border border-border bg-card py-8 px-4 lg:px-8 shadow-sm">
                   <h2 className="mb-8 text-2xl font-semibold text-foreground">
                     Send us a Message
                   </h2>
-
-                  {submitted && (
-                    <div className="mb-6 animate-fade-in rounded-lg bg-[#02590F]/10 p-4 text-[#02590F]">
-                      <p className="font-medium">
-                        Thank you for your message! We&apos;ll get back to you
-                        soon.
-                      </p>
-                    </div>
-                  )}
-
-                  <form
-                    onSubmit={handleSubmit}
-                    className="space-y-6 relative z-10"
-                  >
-                    <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <form
+                      id="message-form"
+                      onSubmit={handleSubmit}
+                      className="space-y-6 relative z-10"
+                    >
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-foreground"
+                          >
+                            Full Name
+                          </label>
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            disabled={isPending}
+                            className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                            placeholder="John Doe"
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-foreground"
+                          >
+                            Email Address
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            disabled={isPending}
+                            className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                            placeholder="john@example.com"
+                          />
+                        </div>
+                      </div>
                       <div>
                         <label
-                          htmlFor="name"
+                          htmlFor="subject"
                           className="block text-sm font-medium text-foreground"
                         >
-                          Full Name
+                          Subject
                         </label>
                         <input
                           type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
+                          id="subject"
+                          name="subject"
                           required
-                          className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20"
-                          placeholder="John Doe"
+                          disabled={isPending}
+                          className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                          placeholder="How can we help?"
                         />
                       </div>
                       <div>
                         <label
-                          htmlFor="email"
+                          htmlFor="message"
                           className="block text-sm font-medium text-foreground"
                         >
-                          Email Address
+                          Message
                         </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
+                        <textarea
+                          id="message"
+                          name="message"
                           required
-                          className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20"
-                          placeholder="john@example.com"
+                          disabled={isPending}
+                          rows={6}
+                          className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                          placeholder="Tell us more about your inquiry..."
                         />
                       </div>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium text-foreground"
+                      <button
+                        type="submit"
+                        disabled={isPending}
+                        className="w-full rounded-lg bg-[#02590F] px-6 py-3 font-medium text-[#02590F]-foreground transition-all hover:bg-[#02590F]/90 disabled:opacity-50 text-white cursor-pointer disabled:cursor-not-allowed"
                       >
-                        Subject
-                      </label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20"
-                        placeholder="How can we help?"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-medium text-foreground"
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground placeholder-muted-foreground transition-colors focus:border-[#02590F] focus:outline-none focus:ring-2 focus:ring-[#02590F]/20"
-                        placeholder="Tell us more about your inquiry..."
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full rounded-lg bg-[#02590F] px-6 py-3 font-medium text-[#02590F]-foreground transition-all hover:bg-[#02590F]/90 disabled:opacity-50 text-white cursor-pointer"
-                    >
-                      {loading ? "Sending..." : "Send Message"}
-                    </button>
-                  </form>
+                        {isPending ? "Sending..." : "Send Message"}
+                      </button>
+                    </form>
+
+                    {submitSuccess && (
+                      <div className="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 flex items-center gap-3">
+                        <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          ✓
+                        </div>
+                        <span className="font-medium">
+                          Your message has been sent successfully!
+                        </span>
+                      </div>
+                    )}
+
+                    {errorMessage && (
+                      <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 flex items-center gap-3">
+                        <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          !
+                        </div>
+                        <span className="font-medium">{errorMessage}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Contact Information */}
               <div className="space-y-8 relative z-10">
-                {/* Email */}
                 <div className="rounded-lg border border-border bg-card p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#02590F]/10">
                     <svg
@@ -194,7 +192,6 @@ export default function ContactPage() {
                   </a>
                 </div>
 
-                {/* Phone */}
                 <div className="rounded-lg border border-border bg-card p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#02590F]/10">
                     <svg
@@ -220,7 +217,6 @@ export default function ContactPage() {
                   </a>
                 </div>
 
-                {/* Location */}
                 <div className="rounded-lg border border-border bg-card p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#02590F]/10">
                     <svg
@@ -255,7 +251,6 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                {/* Social Links */}
                 <div className="rounded-lg border border-border bg-card p-6">
                   <h3 className="mb-4 font-semibold text-foreground">
                     Follow Us
@@ -308,7 +303,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* FAQ Section */}
         <section className="relative py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12 text-center">

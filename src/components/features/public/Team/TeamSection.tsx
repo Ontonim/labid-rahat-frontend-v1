@@ -1,20 +1,16 @@
-"use client";
-
-import { useState } from "react";
-import { teamMembers } from "@/lib/team-data";
 import TeamCard from "./TeamCard";
 import DevelopedBy from "./OntonimTeam";
 import Background from "@/components/common/Background";
+import { getTeamMembers } from "@/actions/team/getTeamMembers";
 
-export default function TeamSection() {
-  const [selectedMember, setSelectedMember] = useState<string | null>(null);
-
+export default async function TeamSection() {
+  const members = await getTeamMembers();
+  const teamMembers = members?.data;
   return (
     <section className="relative z-10 mt-10 lg:mt-20">
       <Background />
       <section className="relative w-full py-20 px-4 z-10">
         <div className="container mx-auto relative z-10">
-          {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
               Meet Our Team
@@ -25,19 +21,9 @@ export default function TeamSection() {
             </p>
           </div>
 
-          {/* Team Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             {teamMembers.map((member) => (
-              <TeamCard
-                key={member.id}
-                member={member}
-                isSelected={selectedMember === member.id}
-                onSelect={() =>
-                  setSelectedMember(
-                    selectedMember === member.id ? null : member.id
-                  )
-                }
-              />
+              <TeamCard key={member._id} member={member} />
             ))}
           </div>
         </div>

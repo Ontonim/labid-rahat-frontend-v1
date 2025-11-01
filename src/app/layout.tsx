@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 export const metadata = {
-  title: "Labid Rahat",
-  description: "A",
+  title: "Labid Rahat - World History Storyteller",
+  description:
+    "I'm a Bangladeshi content creator dedicated to explaining complex global issues in simple, visual ways. Through maps, real-world examples, and in-depth research, I help students and curious minds understand how the world works.",
   icons: {
     icon: "../../public/logo/logo.png",
   },
