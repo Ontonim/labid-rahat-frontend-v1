@@ -1,37 +1,41 @@
 "use client";
 
 import type React from "react";
-
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Mail, CheckCircle } from "lucide-react";
+import { subscribeNewsletter } from "@/actions/newsLetter/newsLetter";
 
 export default function NewsletterCTA() {
-  const [email, setEmail] = useState("");
+  const [isPending, startTransition] = useTransition();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setErrorMessage(null);
+    setIsSubmitted(false);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const formData = new FormData(e.currentTarget);
 
-    setIsSubmitted(true);
-    setEmail("");
-    setIsLoading(false);
+    startTransition(async () => {
+      const result = await subscribeNewsletter(formData);
 
-    // Reset after 3 seconds
-    setTimeout(() => setIsSubmitted(false), 3000);
+      if (result.success) {
+        setIsSubmitted(true);
+        setErrorMessage(null);
+        (document.getElementById("news-letter") as HTMLFormElement)?.reset();
+
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        setErrorMessage(result.message);
+      }
+    });
   };
 
   return (
     <section className="py-20 px-4">
-
-
       <div className="container relative mx-auto">
         <div className="bg-white/80 backdrop-blur-sm border border-[#02590F]/10 rounded-2xl p-8 sm:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-[#02590F]/10 rounded-full mb-4">
               <Mail className="w-6 h-6 text-[#02590F]" />
@@ -45,23 +49,22 @@ export default function NewsletterCTA() {
             </p>
           </div>
 
-          {/* Form */}
           <form
+            id="news-letter"
             onSubmit={handleSubmit}
             className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
           >
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
-              disabled={isSubmitted || isLoading}
+              disabled={isSubmitted || isPending}
               className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02590F] focus:border-transparent transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               type="submit"
-              disabled={isSubmitted || isLoading}
+              disabled={isSubmitted || isPending}
               className="px-6 py-3 bg-[#02590F] text-white font-semibold rounded-lg hover:bg-[#01420a] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
             >
               {isSubmitted ? (
@@ -69,7 +72,7 @@ export default function NewsletterCTA() {
                   <CheckCircle className="w-5 h-5" />
                   <span>Subscribed!</span>
                 </>
-              ) : isLoading ? (
+              ) : isPending ? (
                 <span>Subscribing...</span>
               ) : (
                 "Subscribe"
@@ -77,14 +80,18 @@ export default function NewsletterCTA() {
             </button>
           </form>
 
-          {/* Success message */}
           {isSubmitted && (
             <p className="text-center text-sm text-[#02590F] mt-4 animate-fade-in">
               Thank you for subscribing! Check your email for confirmation.
             </p>
           )}
 
-          {/* Trust indicators */}
+          {errorMessage && (
+            <p className="text-center text-sm text-red-600 mt-4 animate-fade-in">
+              {errorMessage}
+            </p>
+          )}
+
           <div className="mt-8 pt-8 border-t border-gray-200">
             <p className="text-center text-sm text-gray-600 mb-4">
               Join thousands of people receiving weekly insights
