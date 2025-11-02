@@ -1,6 +1,20 @@
 "use server";
 
-export interface Blog {
+export interface CommentProps {
+  _id: string;
+  name: string;
+  email: string;
+  comment: string;
+  blogId: string;
+  timestamp: string;
+  status: string;
+  approved: boolean;
+  isdeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+export interface SingleBlog {
   _id: string;
   title: string;
   content: string;
@@ -11,19 +25,16 @@ export interface Blog {
   readTime: string;
   excerpt: string;
   source: string;
+  status: string;
+  author: string;
+  authorModel: string;
+  updatedAt: string;
+  comments: CommentProps[];
 }
 
 interface BlogsResponse {
   success: boolean;
-  data: {
-    blogs: Blog[];
-  };
-  pagination?: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+  data: SingleBlog;
 }
 
 export async function getSingleBlog(id: string) {
@@ -47,6 +58,7 @@ export async function getSingleBlog(id: string) {
     }
 
     const data: BlogsResponse = await response.json();
+
     return {
       success: true,
       data: data.data,
@@ -55,7 +67,7 @@ export async function getSingleBlog(id: string) {
     console.error("Error fetching blogs:", error);
     return {
       success: false,
-      data: [],
+      data: null,
       error: error instanceof Error ? error.message : "Unknown error",
     };
   }

@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import Comment from "./Comment";
 import { formatDate } from "@/utils/formatDate";
+import { SingleBlog } from "@/actions/blogs/getSingleBlog";
 
-export default function BlogDetailPage({ blog }: { blog: string }) {
-  const blogDetails = blog?.data;
+export default function BlogDetailPage({ blog }: { blog: SingleBlog }) {
+  const blogDetails = blog;
   return (
     <div className="min-h-screen relative z-10">
       <Background />
@@ -85,10 +86,7 @@ export default function BlogDetailPage({ blog }: { blog: string }) {
             ))}
         </div>
 
-        <Comment
-          comments={blogDetails?.comments}
-          blogId={blogDetails?._id}
-        />
+        <Comment comments={blogDetails?.comments} blogId={blogDetails?._id} />
       </article>
     </div>
   );

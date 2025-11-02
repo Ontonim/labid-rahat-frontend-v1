@@ -1,7 +1,7 @@
 import TeamCard from "./TeamCard";
 import DevelopedBy from "./OntonimTeam";
 import Background from "@/components/common/Background";
-import { getTeamMembers } from "@/actions/team/getTeamMembers";
+import { getTeamMembers, Members } from "@/actions/team/getTeamMembers";
 
 export default async function TeamSection() {
   const members = await getTeamMembers();
@@ -22,7 +22,7 @@ export default async function TeamSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            {teamMembers.map((member) => (
+            {teamMembers.map((member: Members) => (
               <TeamCard key={member._id} member={member} />
             ))}
           </div>

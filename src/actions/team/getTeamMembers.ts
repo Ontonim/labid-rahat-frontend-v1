@@ -11,9 +11,7 @@ export interface Members {
 
 interface TeamMembersResponse {
   success: boolean;
-  data: {
-    data: Members[];
-  };
+  data: Members[];
 }
 
 export async function getTeamMembers() {

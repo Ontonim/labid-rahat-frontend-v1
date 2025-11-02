@@ -11,18 +11,22 @@ export interface Blog {
   readTime: string;
   excerpt: string;
   source: string;
+  status: string;
+  author: string;
+  authorModel: string;
+  updatedAt: string;
 }
 
 interface BlogsResponse {
   success: boolean;
   data: {
     blogs: Blog[];
-  };
-  pagination?: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
+    meta: {
+      total: number;
+      page: number;
+      limit: number;
+      totalPages: number;
+    };
   };
 }
 
@@ -47,10 +51,11 @@ export async function getBlogs(page: number, limit: number) {
     }
 
     const data: BlogsResponse = await response.json();
+
     return {
       success: true,
-      data: data.data,
-      pagination: data.pagination,
+      data: data.data.blogs,
+      meta: data.data.meta,
     };
   } catch (error) {
     console.error("Error fetching blogs:", error);

@@ -33,8 +33,8 @@ export function useInfiniteBlogs(initialLimit: number): UseInfiniteBlogsReturn {
         const result = await getBlogs(pageNum, limit);
 
         if (result.success) {
-          const newBlogs = result.data?.blogs || [];
-          const meta = result.data?.meta;
+          const newBlogs = result.data || [];
+          const meta = result.meta;
 
           setBlogs((prev) => [...prev, ...newBlogs]);
 

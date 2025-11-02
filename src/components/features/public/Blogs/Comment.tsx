@@ -1,15 +1,10 @@
+import { CommentProps } from "@/actions/blogs/getSingleBlog";
 import CommentForm from "./CommentForm";
-interface Comment {
-  _id: string;
-  name: string;
-  comment: string;
-  timestamp: string;
-}
 const Comment = ({
   comments,
   blogId,
 }: {
-  comments: Comment[];
+  comments: CommentProps[];
   blogId: string;
 }) => {
   return (
