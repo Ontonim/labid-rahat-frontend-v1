@@ -35,15 +35,10 @@ export default function BlogDetailPage({ blog }: { blog: SingleBlog }) {
               {formatDate(blogDetails.date)}
             </span>
           </div>
-
-          <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            {blogDetails.title}
-          </h1>
-
           <div className="flex flex-wrap items-center gap-6 text-slate-600">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
-                {blogDetails.authorModel.charAt(0)}
+                {blogDetails.authorModel?.charAt(0) || "A"}
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-900">
@@ -72,17 +67,18 @@ export default function BlogDetailPage({ blog }: { blog: SingleBlog }) {
             className="w-full h-96 object-cover"
           />
         </div>
-
-        <div className="prose prose-lg max-w-none mb-16">
+        <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+          {blogDetails.title}
+        </h1>
+        <div className="text-lg text-slate-700 leading-relaxed my-6">
           {blogDetails.content
             .split("\n\n")
             .map((paragraph: string, index: number) => (
               <p
                 key={index}
-                className="text-lg text-slate-700 leading-relaxed mb-6"
-              >
-                {paragraph}
-              </p>
+                className="leading-relaxed mb-6"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              ></p>
             ))}
         </div>
 
