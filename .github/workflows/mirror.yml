@@ -1,0 +1,27 @@
+name: Mirror to Client Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push to client repo
+        run: |
+          git config --global user.name "Labid Rahat"
+          git config --global user.email "labidrahat1@gmail.com"
+
+          # Add client repo remote
+          git remote add client https://x-access-token:${{ secrets.CLIENT_PAT }}@github.com/labidrahat/frontend-v1.git
+
+          # Push force (mirror)
+          git push client main --force
